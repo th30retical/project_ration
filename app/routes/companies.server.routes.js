@@ -9,6 +9,9 @@ module.exports = function(app) {
 		.get(companies.list)
 		.post(users.requiresLogin, companies.create);
 
+	app.route('/companiesByUser')
+			.get(companies.listByUser);
+
 	app.route('/companies/:companyId')
 		.get(companies.read)
 		.put(users.requiresLogin, companies.hasAuthorization, companies.update)

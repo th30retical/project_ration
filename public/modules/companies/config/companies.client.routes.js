@@ -9,6 +9,10 @@ angular.module('companies').config(['$stateProvider',
 			url: '/companies',
 			templateUrl: 'modules/companies/views/list-companies.client.view.html'
 		}).
+		state('listCompaniesByUser', {
+			url: '/companiesByUser',
+			templateUrl: 'modules/companies/views/list-companies-by-user.client.view.html'
+		}).
 		state('createCompany', {
 			url: '/companies/create',
 			templateUrl: 'modules/companies/views/create-company.client.view.html'
