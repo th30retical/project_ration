@@ -1,0 +1,38 @@
+Companies Table:
+	- Company_id bigint(20)
+	- Company_name varchar(225)
+	- Company_location varchar(225)
+	- Company_contact_id bigint(20)
+	- Status (approved or not)
+
+Company_user(The company contact):
+	- User_id bigint(20) [company_contact_id is the same as this]
+	- User_full_name varchar(225)
+	- User_login varchar(225)
+	- User_password ecrypted varchar(225)
+
+Wallet(connects wallet and used donations):
+	- Company_id
+	- Usable
+	- Used
+	- Total
+
+Usable_donations:
+	- Company_id bigint(20)
+	- Donor_id bigint(20)
+	- Donation_id
+	- Amount bigint(10)
+	- Date_inserted Timestamp
+
+Donor_user:
+	- User_id
+	- User_full_name
+	- User_login
+	- User_password
+
+Used_donations:
+	- Company_id
+	- Donor_id
+	- Donation_id
+	- Amount
+	- Date_inserted
