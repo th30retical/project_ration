@@ -20,11 +20,6 @@ exports.signup = function(req, res) {
 	var user = new User(req.body);
 	var message = null;
 
-	//console.log(user);
-	user.roles = req.body.roles;
-	//console.log(user.roles, req.body);
-	console.log(req);
-
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.name_;
