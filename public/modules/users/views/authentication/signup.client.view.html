@@ -1,5 +1,42 @@
 <section class="row" data-ng-controller="AuthenticationController">
-	<h3 class="col-md-12 text-center">Sign up using your social accounts</h3>
+	<h3 class="col-md-12 text-center">SIGN UP</h3>
+	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+		<form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
+			<fieldset>
+				<div class="form-group">
+					<label for="name_">Name</label>
+					<input type="text" required id="name_" name="name_" class="form-control" data-ng-model="credentials.name_" placeholder="Full Name">
+				</div>
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="email" required id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
+				</div>
+				<div class="form-group">
+					<label for="username">Username</label>
+					<input type="text" required id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
+				</div>
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" 	required id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
+				</div>
+				<div class="form-group get-role">
+					<input type="radio" data-ng-click="clickme('donor')" class="type donor" checked="checked" id="donor" name="type" value="Donor"> Donor</input>
+					<input type="radio" data-ng-click="clickme('company')" class="type company" id="company" name="type" value="Company" style="margin: 0 0 0 54px!important"> Company</input>
+				</div>
+				<div class="text-center form-group">
+					<!-- <button type="button" data-ng-click="nextStep()" class="btn btn-large btn-primary">Next</button> -->
+					<button type="submit" class="btn btn-large btn-primary">Sign up</button>
+				</div>
+				<div data-ng-show="error" class="text-center text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+
+
+
+	<!-- <h3 class="col-md-12 text-center">Sign up using your social accounts</h3>
 	<div class="col-md-12 text-center">
 		<a href="/auth/facebook" class="undecorated-link">
 			<img src="/modules/users/img/buttons/facebook.png">
@@ -16,39 +53,12 @@
 		<a href="/auth/github" class="undecorated-link">
 			<img src="/modules/users/img/buttons/github.png">
 		</a>
-	</div>
-	<h3 class="col-md-12 text-center">Or with your email</h3>
-	<div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
+	</div> -->
+	<!-- <h3 class="col-md-12 text-center">Or with your email</h3> -->
+	<!-- <div class="col-xs-offset-2 col-xs-8 col-md-offset-5 col-md-2">
 		<form name="userForm" data-ng-submit="signup()" class="signin form-horizontal" novalidate autocomplete="off">
 			<fieldset>
-				<div class="form-group">
-					<label for="firstName">First Name</label>
-					<input type="text" required id="firstName" name="firstName" class="form-control" data-ng-model="credentials.firstName" placeholder="First Name">
-				</div>
-				<div class="form-group">
-					<label for="lastName">Last Name</label>
-					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="credentials.lastName" placeholder="Last Name">
-				</div>
-				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="credentials.email" placeholder="Email">
-				</div>
-				<div class="form-group">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="credentials.username" placeholder="Username">
-				</div>
-				<div class="form-group">
-					<label for="password">Password</label>
-					<input type="password" id="password" name="password" class="form-control" data-ng-model="credentials.password" placeholder="Password">
-				</div>
-				<div class="text-center form-group">
-					<button type="submit" class="btn btn-large btn-primary">Sign up</button>&nbsp; or&nbsp;
-					<a href="/#!/signin" class="show-signup">Sign in</a>
-				</div>
-				<div data-ng-show="error" class="text-center text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
 			</fieldset>
 		</form>
-	</div>
+	</div> -->
 </section>
