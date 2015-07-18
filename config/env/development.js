@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-	db: 'mongodb://localhost/projectrations-dev',
+	db: 'mongodb://' + process.env.dbuser + ':' + process.env.dbpassword + '@ds047652.mongolab.com:47652/projectrations',
 	app: {
 		title: 'ProjectRations - Development Environment'
 	},
