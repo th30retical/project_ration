@@ -95,6 +95,7 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 
 				company.money_usable +=  Number(data);
 				console.log(company.money_usable);
+				//console.log(company);
 
 				company.$update(function() {
 					// $location.path('/companies/' + company._id);

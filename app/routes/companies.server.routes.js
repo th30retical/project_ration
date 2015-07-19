@@ -20,7 +20,7 @@ module.exports = function(app) {
 
 	app.route('/companies/:companyId')
 		.get(companies.read)
-		.put(users.requiresLogin, companies.hasAuthorization, companies.update)
+		.put(users.requiresLogin, companies.update)
 		.delete(users.requiresLogin, companies.hasAuthorization, companies.delete);
 
 	// Finish by binding the Company middleware
