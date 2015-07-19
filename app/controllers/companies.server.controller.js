@@ -86,15 +86,15 @@ exports.list = function(req, res) {
 
 
 exports.listByStatus = function(req, res) {
-	// Company.find({user: req.user._id}).sort('-created').populate('user', 'displayName').exec(function(err, companies) {
-	// 	if (err) {
-	// 		return res.status(400).send({
-	// 			message: errorHandler.getErrorMessage(err)
-	// 		});
-	// 	} else {
-	// 		res.jsonp(companies);
-	// 	}
-	// });
+	Company.find({status: true}).sort('-created').populate('user', 'displayName').exec(function(err, companies) {
+		if (err) {
+			return res.status(400).send({
+				message: errorHandler.getErrorMessage(err)
+			});
+		} else {
+			res.jsonp(companies);
+		}
+	});
 };
 
 

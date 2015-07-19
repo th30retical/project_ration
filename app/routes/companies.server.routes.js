@@ -6,7 +6,7 @@ module.exports = function(app) {
 
 	// Companies Routes
 	app.route('/companies')
-		.get(companies.list)
+		.get(companies.listByStatus)
 		.post(users.requiresLogin, companies.create);
 
 	app.route('/companiesByUser')

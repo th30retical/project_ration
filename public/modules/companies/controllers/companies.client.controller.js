@@ -5,7 +5,9 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 	function($scope, $stateParams, $location, Authentication, Companies, $http) {
 		$scope.authentication = Authentication;
 
-		console.log($scope.authentication);
+		$scope.logThis = function(m){
+			console.log(m);
+		};
 		// Create new Company
 		$scope.create = function() {
 			// Create new Company object
@@ -60,12 +62,8 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 
 		// Find a list of Companies by User
 		$scope.findCompaniesByUser = function() {
-			console.log($scope.authentication.user._id);
-
 			$http.get('/companiesByUser').success(function(data, status, headers, config){
-				console.log(data);
 				$scope.companies = data;
-				console.log('success');
 			}).error(function(data, status, headers, config){
 				console.log('error');
 			});

@@ -3,15 +3,27 @@
         <h1>My Companies</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="company in companies" data-ng-href="#!/companies/{{company._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="company.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="company.user.displayName"></span>
-			</small>
+      <a data-ng-repeat="company in companies" data-ng-href="#!/companies/{{company._id}}" class="list-group-item">
+      <div>
+  			<small class="list-group-item-text">
+  				Posted on
+  				<span data-ng-bind="company.created | date:'medium'"></span>
+  				by
+  				<span data-ng-bind="company.user.displayName"></span>
+  			</small>
+        <div class="btn-group pull-right" role="group" data-ng-show="company.status">
+    		  <button type="button" class="btn btn-success">Verified</button>
+    		  <button type="button" class="btn btn-default">-</button>
+    		</div>
+    		<div class="btn-group pull-right" role="group" data-ng-show="!company.status">
+    		  <button type="button" class="btn btn-default">-</button>
+    		  <button type="button" class="btn btn-danger">Not Verified</button>
+    		</div>
+      </div>
 			<h4 class="list-group-item-heading" data-ng-bind="company.name"></h4>
-        </a>
+      <span>Usable money: {{company.money_usable | currency}}</span>
+      <span>Money donated: {{company.money_used | currency}}</span>
+      </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!companies.$resolved || companies.length">
     	No Companies yet, why don't you <a href="/#!/companies/create">create one</a>?
