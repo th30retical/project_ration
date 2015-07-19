@@ -10,7 +10,7 @@ angular.module('core').service('Menus', [
 		// Define the menus object
 		this.menus = {};
 
-		// A private function for rendering decision 
+		// A private function for rendering decision
 		var shouldRender = function(user) {
 			if (user) {
 				if (!!~this.roles.indexOf('*')) {
@@ -24,6 +24,29 @@ angular.module('core').service('Menus', [
 						}
 					}
 				}
+			} else {
+				return this.isPublic;
+			}
+
+			return false;
+		};
+
+		var shouldRenderCompany = function(user) {
+			//console.log(user.roles == '');
+			if (user) {
+				if (user.roles == 'company') { return true; }
+
+			} else {
+				return this.isPublic;
+			}
+
+			return false;
+		};
+
+		var shouldRenderDonor = function(user) {
+			if (user) {
+				if (user.roles == 'donor') { return true; }
+
 			} else {
 				return this.isPublic;
 			}
@@ -62,7 +85,9 @@ angular.module('core').service('Menus', [
 				isPublic: isPublic || false,
 				roles: roles || this.defaultRoles,
 				items: [],
-				shouldRender: shouldRender
+				shouldRender: shouldRender,
+				shouldRenderCompany: shouldRenderCompany,
+				shouldRenderDonor: shouldRenderDonor
 			};
 
 			// Return the menu object
@@ -94,7 +119,9 @@ angular.module('core').service('Menus', [
 				roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),
 				position: position || 0,
 				items: [],
-				shouldRender: shouldRender
+				shouldRender: shouldRender,
+				shouldRenderCompany: shouldRenderCompany,
+				shouldRenderDonor: shouldRenderDonor
 			});
 
 			// Return the menu object
@@ -117,7 +144,9 @@ angular.module('core').service('Menus', [
 						isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].items[itemIndex].isPublic : isPublic),
 						roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].items[itemIndex].roles : roles),
 						position: position || 0,
-						shouldRender: shouldRender
+						shouldRender: shouldRender,
+						shouldRenderCompany: shouldRenderCompany,
+						shouldRenderDonor: shouldRenderDonor
 					});
 				}
 			}
