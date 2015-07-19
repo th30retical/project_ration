@@ -1,3 +1,7 @@
+body {
+	background: url('/modules/core/img/background/skyline.jpg') no-repeat top center fixed;
+}
+
 .content {
 	margin-top: 50px;
 }
