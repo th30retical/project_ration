@@ -1,8 +1,8 @@
 'use strict';
 
 // Companies controller
-angular.module('companies').controller('CompaniesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Companies', '$http',
-	function($scope, $stateParams, $location, Authentication, Companies, $http) {
+angular.module('companies').controller('CompaniesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Companies', '$http', '$modal',
+	function($scope, $stateParams, $location, Authentication, Companies, $http, $modal) {
 		$scope.authentication = Authentication;
 		// $http.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -122,5 +122,47 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 			document.querySelector('.changeForm').setAttribute('class','hidden');
 			document.querySelector('form').setAttribute('class','');
 		};
+  $scope.items = ['item1', 'item2', 'item3'];
+
+		$scope.open = function (size) {
+
+	      var modalInstance = $modal.open({
+	        animation: $scope.animationsEnabled,
+	        templateUrl: 'myModalContent.html',
+	        controller: 'ModalInstanceCtrl',
+	        size: size,
+	        resolve: {
+	          items: function () {
+	            return $scope.items;
+	          }
+	        }
+	      });
+
+
+		  $scope.toggleAnimation = function () {
+		    $scope.animationsEnabled = !$scope.animationsEnabled;
+		  };
+    modalInstance.result.then(function (selectedItem) {
+      $scope.selected = selectedItem;
+    }, function () {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  $scope.animationsEnabled = true;
+  };
+
 	}
-]);
+]).controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
+
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $modalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $modalInstance.dismiss('cancel');
+  };
+});

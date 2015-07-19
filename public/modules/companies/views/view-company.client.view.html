@@ -47,10 +47,26 @@
 	  <input class="btn btn-primary" type="submit" value="Donate"></input>
 	</form>
 
-	<div id="use-money" data-ng-show="(authentication.user._id === company.user._id)">
+	<div id="use-money" data-ng-show="(authentication.user._id === company.user._id)" style="margin:12px 0 0 0">
 		<!-- uh fucking hell m8 -->
-
+		<script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <h3 class="modal-title">Send in your Recepts to</h3>
+        </div>
+        <div class="modal-body">
+            	projectration+recepts@chickenloaft.com
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" ng-click="ok()">OK</button>
+            <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+        </div>
+    	</script>
+		<button class="btn btn-primary" ng-click="open()">Send Recepts</button>
 	</div>
+
+
+
+
 
 	<div class="well" data-ng-show="error" style="padding-bottom: 10px; margin-top:10px">
 		<p data-ng-repeat="err in error" class="lead" style="color: red">{{err}}</p>
