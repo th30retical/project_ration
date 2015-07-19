@@ -9,7 +9,7 @@
   "scripts": {
     "start": "grunt",
     "test": "grunt test",
-    "postinstall": "./node_modules/.bin/bower install --config.interactive=false"
+    "postinstall": "./node_modules/.bin/bower install --config.interactive=false && NODE_ENV=development grunt build"
   },
   "dependencies": {
     "async": "~0.9.0",
