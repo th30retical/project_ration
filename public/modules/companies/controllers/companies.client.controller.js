@@ -21,11 +21,12 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
+			$scope.credentials.roles = [];
 		};
 
 		// Remove existing Company
 		$scope.remove = function(company) {
-			if ( company ) { 
+			if ( company ) {
 				company.$remove();
 
 				for (var i in $scope.companies) {
@@ -56,9 +57,14 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 			$scope.companies = Companies.query();
 		};
 
+		// Find a list of Companies by User
+		$scope.findCompaniesByUser = function() {
+			console.log($scope.authentication.user._id);
+		};
+
 		// Find existing Company
 		$scope.findOne = function() {
-			$scope.company = Companies.get({ 
+			$scope.company = Companies.get({
 				companyId: $stateParams.companyId
 			});
 		};
