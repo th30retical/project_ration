@@ -15,11 +15,11 @@ var gateway = braintree.connect({
     privateKey:   'cfc76632975b80974f07e991f32b9840'
 });
 
-app.get("/client_token", function (req, res) {
-  gateway.clientToken.generate({}, function (err, response) {
-    res.send(response.clientToken);
-  });
-});
+// app.get("/client_token", function (req, res) {
+//   gateway.clientToken.generate({}, function (err, response) {
+//     res.send(response.clientToken);
+//   });
+// });
 
 
 
