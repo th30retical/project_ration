@@ -13,6 +13,10 @@ angular.module('companies').config(['$stateProvider',
 			url: '/companiesByUser',
 			templateUrl: 'modules/companies/views/list-companies-by-user.client.view.html'
 		}).
+		state('checkoutPage', {
+			url: '/checkout',
+			templateUrl: 'modules/companies/views/checkout.client.view.html'
+		}).
 		state('createCompany', {
 			url: '/companies/create',
 			templateUrl: 'modules/companies/views/create-company.client.view.html'

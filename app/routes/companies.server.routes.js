@@ -9,6 +9,12 @@ module.exports = function(app) {
 		.get(companies.listByStatus)
 		.post(users.requiresLogin, companies.create);
 
+	app.route('/checkout')
+			.post(companies.checkout);
+
+	app.route('/client_token')
+			.get(companies.getClientToken);
+
 	app.route('/companiesByUser')
 			.get(companies.listByUser);
 
