@@ -89,14 +89,12 @@ exports.list = function(req, res) {
  * List of Companies
  */
 exports.listByUser = function(req, res) {
-	console.log(req);
-	Company.find().sort('-created').populate('user', 'displayName').exec(function(err, companies) {
+	Company.find({user: req.user._id}).sort('-created').populate('user', 'displayName').exec(function(err, companies) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			console.log(companies);
 			res.jsonp(companies);
 		}
 	});

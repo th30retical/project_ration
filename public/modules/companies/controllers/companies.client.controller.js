@@ -1,8 +1,8 @@
 'use strict';
 
 // Companies controller
-angular.module('companies').controller('CompaniesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Companies',
-	function($scope, $stateParams, $location, Authentication, Companies) {
+angular.module('companies').controller('CompaniesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Companies', '$http',
+	function($scope, $stateParams, $location, Authentication, Companies, $http) {
 		$scope.authentication = Authentication;
 
 		// Create new Company
@@ -60,6 +60,14 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 		// Find a list of Companies by User
 		$scope.findCompaniesByUser = function() {
 			console.log($scope.authentication.user._id);
+
+			$http.get('/companiesByUser').success(function(data, status, headers, config){
+				console.log(data);
+				$scope.companies = data;
+				console.log('success');
+			}).error(function(data, status, headers, config){
+				console.log('error');
+			});
 		};
 
 		// Find existing Company
