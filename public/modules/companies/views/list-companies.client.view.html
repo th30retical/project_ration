@@ -3,7 +3,7 @@
         <h1>Companies</h1>
     </div>
     <div class="list-group">
-        <a data-ng-repeat="company in companies" data-ng-href="#!/companies/{{company._id}}" class="list-group-item">
+        <a data-ng-repeat="company in companies" data-ng-href="#!/companies/{{company._id}}" class="list-group-item alternatingColors">
     			<small class="list-group-item-text">
     				Posted on
     				<span data-ng-bind="company.created | date:'medium'"></span>

@@ -1,6 +1,9 @@
 .content {
 	margin-top: 50px;
 }
+.alternatingColors:nth-child(even) {
+	background-color: #E0F7FA;
+}
 .undecorated-link:hover {
 	text-decoration: none;
 }
