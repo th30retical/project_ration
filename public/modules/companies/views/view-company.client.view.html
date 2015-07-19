@@ -1,17 +1,21 @@
 <section data-ng-controller="CompaniesController" data-ng-init="findOne()">
-	<div class="page-header">
+	<div class="page-header row">
 		<h1 data-ng-bind="company.name"></h1>
+		<!-- <a class="btn btn-primary" href="/#!/">
+			Donate
+			<i class="glyphicon glyphicon-usd"></i>
+		</a> -->
 	</div>
-	<!-- <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == company.user._id))"> -->
-	<div class="pull-right" data-ng-show="authentication.user">
+	<!-- <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id === company.user._id))"> -->
+<div class="pull-right" data-ng-show="authentication.user">
 		<a class="btn btn-primary" href="/#!/">
 			Donate
 			<i class="glyphicon glyphicon-usd"></i>
 		</a>
-		<a class="btn btn-primary" href="/#!/companies/{{company._id}}/edit">
+		<a class="btn btn-primary" href="/#!/companies/{{company._id}}/edit" data-ng-show="(authentication.user._id === company.user._id)">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
+		<a class="btn btn-primary" data-ng-click="remove();" data-ng-show="(authentication.user._id === company.user._id)">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>

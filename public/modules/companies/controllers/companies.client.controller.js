@@ -5,6 +5,7 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 	function($scope, $stateParams, $location, Authentication, Companies, $http) {
 		$scope.authentication = Authentication;
 
+		console.log($scope.authentication);
 		// Create new Company
 		$scope.create = function() {
 			// Create new Company object
