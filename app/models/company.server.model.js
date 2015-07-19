@@ -20,6 +20,22 @@ var CompanySchema = new Schema({
 		type: Date,
 		default: Date.now
 	},
+	status: {
+		type: Boolean,
+		default: false
+	},
+	money_usable: {
+		type: Number,
+		default: 0,
+	},
+	money_used: {
+		type: Number,
+		default: 0,
+	},
+	total: {
+		type: Number,
+		default: 0,
+	},
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
