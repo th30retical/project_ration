@@ -6,8 +6,14 @@ module.exports = function(app) {
 
 	// Companies Routes
 	app.route('/companies')
-		.get(companies.list)
+		.get(companies.listByStatus)
 		.post(users.requiresLogin, companies.create);
+
+	app.route('/checkout')
+			.post(companies.checkout);
+
+	app.route('/client_token')
+			.get(companies.getClientToken);
 
 	app.route('/companiesByUser')
 			.get(companies.listByUser);

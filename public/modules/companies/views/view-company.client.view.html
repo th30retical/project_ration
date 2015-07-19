@@ -1,38 +1,57 @@
-<section data-ng-controller="CompaniesController" data-ng-init="findOne()">
+<section data-ng-controller="CompaniesController" data-ng-init="findOne();init();">
 	<div class="page-header">
+		<small>
+			<em class="text-muted">
+				Posted on
+				<span data-ng-bind="company.created | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="company.user.displayName"></span>
+			</em>
+		</small>
+
+				<div class="btn-group pull-right" role="group" data-ng-show="company.status">
+				  <button type="button" class="btn btn-success">Verified</button>
+				  <button type="button" class="btn btn-default">-</button>
+				</div>
+				<div class="btn-group pull-right" role="group" data-ng-show="!company.status">
+				  <button type="button" class="btn btn-default">-</button>
+				  <button type="button" class="btn btn-danger">Not Verified</button>
+				</div>
 		<h1 data-ng-bind="company.name"></h1>
 	</div>
 	<!-- <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == company.user._id))"> -->
-	<div class="pull-right" data-ng-show="authentication.user">
+	<!-- <div class="pull-right" data-ng-show="authentication.user">
 		<a class="btn btn-primary changeForm" data-ng-click="showForm()">Donate $</a>
-		<a class="btn btn-primary" href="/#!/companies/{{company._id}}/edit">
+		<a class="btn btn-primary" href="/#!/companies/{{company._id}}/edit"> -->
+	<!-- <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id === company.user._id))"> -->
+<div class="pull-right" data-ng-show="authentication.user">
+		<a class="btn btn-primary" href="/#!/companies/{{company._id}}/edit" data-ng-show="(authentication.user._id === company.user._id)">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
+		<a class="btn btn-primary" data-ng-click="remove();" data-ng-show="(authentication.user._id === company.user._id)">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="company.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="company.user.displayName"></span>
-		</em>
-	</small>
-	<form class="hidden" id="checkout" method="post" action="/checkout">
-		<div class="col-xs-3">
-			<label>Donation Amount</label>
-			<input required class="form-control" name="name" placeholder="$$">
-		</div>
-		<div class="col-xs-4">
-			<label>Credit Card</label>
-			<input required class="form-control" data-braintree-name="number" placeholder="0000 0000 0000 0000">
-		</div>
-		<div class="col-xs-2">
-			<label>Exp Date</label>
-			<input required class="form-control" data-braintree-name="expiration_date" placeholder="MM/YY">
-		</div>
-		<input class="btn btn-primary" type="submit" value="Donate $">
+
+	<form id="checkout" data-ng-submit="postForm();">
+	  <div id="payment-form"></div>
+		<input id="creditCard.creditCard.number" name="creditCard.creditCard.number" class="card-field" type="tel" inputmode="numeric" placeholder="Card Number" autocomplete="off" data-ng-model="creditCard.creditCard.number">
+		<input id="creditCard.creditCard.expiration" name="creditCard.creditCard.expiration" class="card-field" type="tel" inputmode="numeric" placeholder="Expiration Date" autocomplete="off" data-ng-model="creditCard.creditCard.expirationDate">
+		<input id="creditCard.amount" name="creditCard.amount" class="card-field" type="tel" inputmode="numeric" placeholder="Amount($)" autocomplete="off" data-ng-model="creditCard.amount">
+	  <input class="btn btn-primary" type="submit" value="Donate"></input>
 	</form>
+	<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+	<script>
+	// We generated a client token for you so you can test out this code
+	// immediately. In a production-ready integration, you will need to
+	// generate a client token on your server (see section below).
+	var clientToken = "eyJ2ZXJzaW9uIjoyLCJhdXRob3JpemF0aW9uRmluZ2VycHJpbnQiOiIxZGQ5ZDdkMzk1NTZmNDNjYTMwNDI5NGVkY2Y1OTgyNmEwODU2MzMyMjRjZDUzYjQxNWQ1ZDlkYjRmNzY3YTIxfGNyZWF0ZWRfYXQ9MjAxNS0wNy0xOVQwNTo0NToyMS4zNzM4MjY1NTYrMDAwMFx1MDAyNm1lcmNoYW50X2lkPWRjcHNweTJicndkanIzcW5cdTAwMjZwdWJsaWNfa2V5PTl3d3J6cWszdnIzdDRuYzgiLCJjb25maWdVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvZGNwc3B5MmJyd2RqcjNxbi9jbGllbnRfYXBpL3YxL2NvbmZpZ3VyYXRpb24iLCJjaGFsbGVuZ2VzIjpbXSwiZW52aXJvbm1lbnQiOiJzYW5kYm94IiwiY2xpZW50QXBpVXJsIjoiaHR0cHM6Ly9hcGkuc2FuZGJveC5icmFpbnRyZWVnYXRld2F5LmNvbTo0NDMvbWVyY2hhbnRzL2RjcHNweTJicndkanIzcW4vY2xpZW50X2FwaSIsImFzc2V0c1VybCI6Imh0dHBzOi8vYXNzZXRzLmJyYWludHJlZWdhdGV3YXkuY29tIiwiYXV0aFVybCI6Imh0dHBzOi8vYXV0aC52ZW5tby5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIiwiYW5hbHl0aWNzIjp7InVybCI6Imh0dHBzOi8vY2xpZW50LWFuYWx5dGljcy5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tIn0sInRocmVlRFNlY3VyZUVuYWJsZWQiOnRydWUsInRocmVlRFNlY3VyZSI6eyJsb29rdXBVcmwiOiJodHRwczovL2FwaS5zYW5kYm94LmJyYWludHJlZWdhdGV3YXkuY29tOjQ0My9tZXJjaGFudHMvZGNwc3B5MmJyd2RqcjNxbi90aHJlZV9kX3NlY3VyZS9sb29rdXAifSwicGF5cGFsRW5hYmxlZCI6dHJ1ZSwicGF5cGFsIjp7ImRpc3BsYXlOYW1lIjoiQWNtZSBXaWRnZXRzLCBMdGQuIChTYW5kYm94KSIsImNsaWVudElkIjpudWxsLCJwcml2YWN5VXJsIjoiaHR0cDovL2V4YW1wbGUuY29tL3BwIiwidXNlckFncmVlbWVudFVybCI6Imh0dHA6Ly9leGFtcGxlLmNvbS90b3MiLCJiYXNlVXJsIjoiaHR0cHM6Ly9hc3NldHMuYnJhaW50cmVlZ2F0ZXdheS5jb20iLCJhc3NldHNVcmwiOiJodHRwczovL2NoZWNrb3V0LnBheXBhbC5jb20iLCJkaXJlY3RCYXNlVXJsIjpudWxsLCJhbGxvd0h0dHAiOnRydWUsImVudmlyb25tZW50Tm9OZXR3b3JrIjp0cnVlLCJlbnZpcm9ubWVudCI6Im9mZmxpbmUiLCJ1bnZldHRlZE1lcmNoYW50IjpmYWxzZSwiYnJhaW50cmVlQ2xpZW50SWQiOiJtYXN0ZXJjbGllbnQzIiwibWVyY2hhbnRBY2NvdW50SWQiOiJzdGNoMm5mZGZ3c3p5dHc1IiwiY3VycmVuY3lJc29Db2RlIjoiVVNEIn0sImNvaW5iYXNlRW5hYmxlZCI6dHJ1ZSwiY29pbmJhc2UiOnsiY2xpZW50SWQiOiIxMWQyNzIyOWJhNThiNTZkN2UzYzAxYTA1MjdmNGQ1YjQ0NmQ0ZjY4NDgxN2NiNjIzZDI1NWI1NzNhZGRjNTliIiwibWVyY2hhbnRBY2NvdW50IjoiY29pbmJhc2UtZGV2ZWxvcG1lbnQtbWVyY2hhbnRAZ2V0YnJhaW50cmVlLmNvbSIsInNjb3BlcyI6ImF1dGhvcml6YXRpb25zOmJyYWludHJlZSB1c2VyIiwicmVkaXJlY3RVcmwiOiJodHRwczovL2Fzc2V0cy5icmFpbnRyZWVnYXRld2F5LmNvbS9jb2luYmFzZS9vYXV0aC9yZWRpcmVjdC1sYW5kaW5nLmh0bWwiLCJlbnZpcm9ubWVudCI6Im1vY2sifSwibWVyY2hhbnRJZCI6ImRjcHNweTJicndkanIzcW4iLCJ2ZW5tbyI6Im9mZmxpbmUiLCJhcHBsZVBheSI6eyJzdGF0dXMiOiJtb2NrIiwiY291bnRyeUNvZGUiOiJVUyIsImN1cnJlbmN5Q29kZSI6IlVTRCIsIm1lcmNoYW50SWRlbnRpZmllciI6Im1lcmNoYW50LmNvbS5icmFpbnRyZWVwYXltZW50cy5zYW5kYm94LkJyYWludHJlZS1EZW1vIiwic3VwcG9ydGVkTmV0d29ya3MiOlsidmlzYSIsIm1hc3RlcmNhcmQiLCJhbWV4Il19fQ==";
+
+	braintree.setup(clientToken, "dropin", {
+	  container: "payment-form"
+	});
+	</script>
+	<div class="well" data-ng-show="error" style="padding-bottom: 10px; margin-top:10px">
+		<p data-ng-repeat="err in error" class="lead" style="color: red">{{err}}</p>
+	</div>
 </section>

@@ -59,11 +59,12 @@
 	<!--Application JavaScript Files-->
 	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
+	<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
+
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>
 	{% endif %}
-	<script src="https://js.braintreegateway.com/v2/braintree.js"></script>
 
 	<script>
 	// We generated a client token for you so you can test out this code
