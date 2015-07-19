@@ -99,7 +99,9 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 
 				company.$update(function() {
 					// $location.path('/companies/' + company._id);
-					window.location.reload();
+					$scope.openA();
+
+					//window.location.reload();
 				}, function(errorResponse) {
 					$scope.error = errorResponse.data.message;
 				});
@@ -124,7 +126,7 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 		};
 		$scope.items = ['item1', 'item2', 'item3'];
 
-			$scope.open = function (size) {
+		$scope.open = function (size) {
 
 			var modalInstance = $modal.open({
 				animation: $scope.animationsEnabled,
@@ -150,6 +152,32 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 			$scope.animationsEnabled = true;
 		};
 
+		$scope.openA = function (size) {
+
+			var newModalInstance = $modal.open({
+				animation: $scope.animationsEnabled,
+				template: '<div class=modal-head><h3 class="modal-title">Thank You for Donating!</h3></div><div class=modal-footer><button class="btn btn-primary" ng-click=continue()>OK</button></div>',
+				controller: 'ModalInstanceCtrl',
+				size: size,
+				resolve: {
+					items: function () {
+						return $scope.items;
+					}
+				}
+			});
+
+
+			$scope.toggleAnimation = function () {
+				$scope.animationsEnabled = !$scope.animationsEnabled;
+			};
+			newModalInstance.result.then(function (selectedItem) {
+				$scope.selected = selectedItem;
+			}, function () {
+				$log.info('Modal dismissed at: ' + new Date());
+			});
+			$scope.animationsEnabled = true;
+		};
+
 	}
 ]).controller('ModalInstanceCtrl', function ($scope, $modalInstance, items) {
 
@@ -165,4 +193,8 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
   $scope.cancel = function () {
     $modalInstance.dismiss('cancel');
   };
+
+  $scope.continue = function () {
+	  window.location.reload();
+  }
 });
