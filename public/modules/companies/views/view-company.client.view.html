@@ -4,10 +4,7 @@
 	</div>
 	<!-- <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == company.user._id))"> -->
 	<div class="pull-right" data-ng-show="authentication.user">
-		<a class="btn btn-primary" href="/#!/">
-			Donate
-			<i class="glyphicon glyphicon-usd"></i>
-		</a>
+		<a class="btn btn-primary changeForm" data-ng-click="showForm()">Donate $</a>
 		<a class="btn btn-primary" href="/#!/companies/{{company._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
@@ -23,4 +20,19 @@
 			<span data-ng-bind="company.user.displayName"></span>
 		</em>
 	</small>
+	<form class="hidden" id="checkout" method="post" action="/checkout">
+		<div class="col-xs-3">
+			<label>Donation Amount</label>
+			<input required class="form-control" name="name" placeholder="$$">
+		</div>
+		<div class="col-xs-4">
+			<label>Credit Card</label>
+			<input required class="form-control" data-braintree-name="number" placeholder="0000 0000 0000 0000">
+		</div>
+		<div class="col-xs-2">
+			<label>Exp Date</label>
+			<input required class="form-control" data-braintree-name="expiration_date" placeholder="MM/YY">
+		</div>
+		<input class="btn btn-primary" type="submit" value="Donate $">
+	</form>
 </section>

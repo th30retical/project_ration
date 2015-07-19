@@ -76,5 +76,10 @@ angular.module('companies').controller('CompaniesController', ['$scope', '$state
 				companyId: $stateParams.companyId
 			});
 		};
+
+		$scope.showForm = function() {
+			document.querySelector('.changeForm').setAttribute('class','hidden');
+			document.querySelector('form').setAttribute('class','');
+		};
 	}
 ]);
